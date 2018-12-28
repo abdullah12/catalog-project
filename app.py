@@ -309,7 +309,6 @@ def deleteCategoryItem(category_id, item_id):
                                 categoryItem=categoryItem)
 
 
-# Create a new menu item
 @app.route('/category/add', methods=['GET', 'POST'])
 def addCategoryItem():
     # Check if user is logged in
@@ -317,23 +316,27 @@ def addCategoryItem():
         return redirect('/login')
 
     if request.method == 'POST':
+        # TODO: Retain data when there is an error
+
         if not request.form['name']:
-            flash('Please add Item name')
-        return redirect(url_for('addCategoryItem'))
+            flash('Please add instrument name')
+            return redirect(url_for('addCategoryItem'))
 
         if not request.form['description']:
             flash('Please add a description')
             return redirect(url_for('addCategoryItem'))
 
         # Add category item
-        newCategoryItem = CategoryItem(name=request.form['name'], description=request.form['description'], category_id=request.form['category'], user_id=login_session['user_id'])
+        newCategoryItem = CategoryItem(name = request.form['name'], description = request.form['description'], category_id = request.form['category'], user_id = login_session['user_id'])
         session.add(newCategoryItem)
         session.commit()
+
         return redirect(url_for('showCategories'))
     else:
         # Get all categories
         categories = session.query(Category).all()
-        return render_template('addCategoryItem.html', categories=categories)
+
+        return render_template('addCategoryItem.html', categories = categories)
 
 
 # Disconnect based on provider

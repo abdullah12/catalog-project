@@ -5,14 +5,12 @@
 
 {% include "header.html" %}
 {% include "flash_messages.html" %}
-
-	<section class="section">
+<h5 class="title">{{categoryItem.name}}</h5>
 		<div class="container">
-			<h5 class="title">{{categoryItem.name}}</h5>
 			<div class="container">
 				{{categoryItem.description}}
 			</div>
-			<div class="container">
+			<div>
 				<a href="{{url_for('showCategory', category_id = categoryItem.category_id)}}" class="button is-primary">Back</a>
 
 				{% if 'username' in session and creator.id == session['user_id'] %}
@@ -21,6 +19,6 @@
 				{% endif %}
 			</div>
 		</div>
-	</section>
+
 
 {% endblock %}

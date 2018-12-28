@@ -6,52 +6,52 @@
 {% include "flash_messages.html" %}
 
 <section class="section">
-	<div class="container">
+    <div class="container">
 
 
-			<h6 
-				Edit Instrument
-				
-			</h6>
-			<form action="#" method="post">
-					
-				
+            <h3>
+                Edit Item
+                
+            </h3>
+            <form action="#" method="post">
+                    
+                
 
-				<div class="field">
-						<label for="" class="label">Name:</label>
-						<div class="control">
-							<input type="text" name="name" value="{{categoryItem.name}}" class="input">
-						</div>
-				</div>
+                <div class="field">
+                        <label for="" class="label">Name:</label>
+                        <div class="control">
+                            <input type="text" name="name" value="{{categoryItem.name}}" class="input">
+                        </div>
+                </div>
 
 
-					<div class="field">
-						<label for="" class="label">Description:</label>
-						<div class="control">
-							<textarea name="description" id="" cols="30" rows="10" class="textarea">{{categoryItem.description}}</textarea>
-						</div>
-					</div>
+                    <div class="field">
+                        <label for="" class="label">Description:</label>
+                        <div class="control">
+                            <textarea name="description" id="" cols="30" rows="10" class="textarea">{{categoryItem.description}}</textarea>
+                        </div>
+                    </div>
 
-					<div class="field">
-						<label for="" class="label">Category:</label>
-						<div class="select">
-							<select class="select" name="category">
-								{% for category in categories %}
-									{% if categoryItem.category_id == category.id %}
-										<option selected value="{{category.id}}">{{category.name}}</option>
-									{% else %}
-										<option value="{{category.id}}">{{category.name}}</option>
-									{% endif %}
-								{% endfor %}
-							</select>
-						</div>
-					</div>
-				
-				<a href="{{url_for('showCategoryItem', category_id = categoryItem.category_id ,item_id = categoryItem.id )}}" class="button is-primary">Back</a>
-				<input type="submit" value="Save" class="button">
-				<p class="flash__message">This is a flash message.</p>
-			</form>
-		</div>
-	</section>
+                    <div class="field">
+                        <label for="" class="label">Category:</label>
+                        <div class="select">
+                            <select class="select" name="category">
+                                {% for category in categories %}
+                                    {% if categoryItem.category_id == category.id %}
+                                        <option selected value="{{category.id}}">{{category.name}}</option>
+                                    {% else %}
+                                        <option value="{{category.id}}">{{category.name}}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                
+                <a href="{{url_for('showCategoryItem', category_id = categoryItem.category_id ,item_id = categoryItem.id )}}" class="button is-primary">Back</a>
+                <input type="submit" value="Save" class="button">
+                
+            </form>
+        </div>
+    </section>
 
 {% endblock %}
