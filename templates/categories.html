@@ -1,0 +1,28 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+{% include "flash_messages.html" %}
+<div class="container">
+	<div class="col">
+	{% for category in categories %}
+	<a href="{{url_for('showCategory',category_id=category.id)}}">
+			<h3>{{category.name}}</h3>
+	</a>
+	{% endfor %}
+	</div>
+	<div class="col">
+		{% for categoryItem in categoryItems %}
+		<a href="{{url_for('showCategoryItem', category_id = categoryItem.category_id ,item_id = categoryItem.id )}}">
+                <li class="has-text-black">{{categoryItem.name}}</li>
+        </a>
+		{% endfor %}
+		{% if 'username' in session %}
+		<a href="{{url_for('addCategoryItem')}}"><li>Add Item</li></a>
+		{% endif %}
+	</div>
+
+</div>
+{% endblock %}
+
+
+

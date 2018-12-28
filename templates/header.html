@@ -1,0 +1,10 @@
+<header>
+<h2><a href="{{url_for('showCategories')}}">Catalog Menu</a></h2>
+<h2>
+			{%if 'username' not in session %}
+			<a href="{{url_for('showLogin')}}">Click Here to Login </a>
+			{% else %}
+			<a href="{{url_for('disconnect')}}">Logout </a>
+			{% endif %}
+</h2>
+</header>

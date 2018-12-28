@@ -1,0 +1,22 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+{% include "flash_messages.html" %}
+<div class="container">
+	<div>
+    {% for category in categories %}
+    <a href="{{url_for('showCategory',category_id=category.id)}}">
+    <h3>{{category.name}}</h3>
+    </a>
+	{% endfor %}
+	</div>
+	<div>
+        <h2>{{categoryName}}s :({{categoryItemsCount}} Items)</h2>
+		{% for categoryItem in categoryItems %}
+        <a href="{{url_for('showCategoryItem', category_id = categoryItem.category_id ,item_id = categoryItem.id )}}">
+                <li class="has-text-black">{{categoryItem.name}}</li>
+        </a>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

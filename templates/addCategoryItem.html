@@ -1,0 +1,38 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+{% include "flash_messages.html" %}
+<section class="section">
+	<div class="container">
+        <h6>Add New Item</h6>
+        <form action="#" method="post">
+            <div class="field">
+                    <label for="" class="label">Name:</label>
+                    <div class="control">
+                        <input class="input" type="text" name="name">
+                    </div>	
+            </div>
+            <div class="field">
+                        <label for="" class="label">Description:</label>
+                        <div class="control">
+                            <textarea name="description" id="" cols="30" rows="10" class="textarea"></textarea>
+                        </div>				
+            </div>
+            <div class="control">
+                    <label for="" class="label">Category:</label>
+                    <div class="select">
+                        <select class="" name="category">
+                            {% for category in categories %}
+                                <option value="{{category.id}}">{{category.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>					
+            </div>
+            </br>
+                <div class="control">
+                        <div class="control"> <input class="button is-primary" type="submit" value="add Item"></div>
+                </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
