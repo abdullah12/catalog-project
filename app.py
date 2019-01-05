@@ -126,7 +126,11 @@ def gconnect():
     output += '!</h1>'
     output += '<img src="'
     output += login_session['picture']
-    output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
+    output += ''' " style = "width: 300px;
+              height: 300px;border-radius: 150px;
+              -webkit-border-radius: 150px;
+              -moz-border-radius: 150px;">
+              '''
     flash("you are now logged in as %s" % login_session['username'])
     print "done!"
     return output
@@ -152,7 +156,7 @@ def getUserID(email):
     try:
         user = session.query(User).filter_by(email=email).one()
         return user.id
-    except:
+    except SQLAlchemyError as ex:
         return None
 
 # DISCONNECT - Revoke a current user's token and reset their login_session
@@ -175,7 +179,8 @@ def gdisconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
     else:
-        response = make_response(json.dumps('Failed to revoke token for given user.', 400))
+        response = make_response
+        (json.dumps('Failed to revoke token for given user.', 400))
         response.headers['Content-Type'] = 'application/json'
         return response
 
@@ -208,7 +213,9 @@ def showCategories():
 
     categoryItems = session.query(CategoryItem).all()
 
-    return render_template('categories.html', categories=categories, categoryItems=categoryItems)
+    return render_template('categories.html',
+                           categories=categories,
+                           categoryItems=categoryItems)
 
 
 # Show a category Items
@@ -216,7 +223,7 @@ def showCategories():
 @app.route('/category/<int:category_id>/items')
 def showCategory(category_id):
     # Get all categories
-    categories=session.query(Category).all()
+    categories = session.query(Category).all()
 
     # Get category
     category = session.query(Category).filter_by(id=category_id).first()
@@ -225,15 +232,17 @@ def showCategory(category_id):
     categoryName = category.name
 
     # Get all items of a specific category
-    categoryItems = session.query(CategoryItem).filter_by(category_id=category_id).all()
+    categoryItems = session.query(CategoryItem) \
+        .filter_by(category_id=category_id).all()
 
     # Get count of category items
-    categoryItemsCount = session.query(CategoryItem).filter_by(category_id=category_id).count()
+    categoryItemsCount = \
+        session.query(CategoryItem).filter_by(category_id=category_id).count()
 
     return render_template('category.html', categories=categories,
-                            categoryItems=categoryItems,
-                            categoryName=categoryName,
-                            categoryItemsCount=categoryItemsCount)
+                           categoryItems=categoryItems,
+                           categoryName=categoryName,
+                           categoryItemsCount=categoryItemsCount)
 
 
 # Show a category Item
@@ -246,11 +255,12 @@ def showCategoryItem(category_id, item_id):
     creator = getUserInfo(categoryItem.user_id)
 
     return render_template('categoryItem.html',
-                            categoryItem=categoryItem, creator=creator)
+                           categoryItem=categoryItem, creator=creator)
 
 
 # Edit a category item
-@app.route('/catalog/<int:category_id>/items/<int:item_id>/edit', methods=['GET', 'POST'])
+@app.route('/catalog/<int:category_id>/items/<int:item_id>/edit',
+           methods=['GET', 'POST'])
 def editCategoryItem(category_id, item_id):
     # Check if user is logged in
     if 'username' not in login_session:
@@ -276,14 +286,19 @@ def editCategoryItem(category_id, item_id):
             categoryItem.description = request.form['description']
         if request.form['category']:
             categoryItem.category_id = request.form['category']
-        return redirect(url_for('showCategoryItem', category_id=categoryItem.category_id, item_id=categoryItem.id))
+        return redirect(url_for('showCategoryItem',
+                                category_id=categoryItem.category_id,
+                                item_id=categoryItem.id))
     else:
-        return render_template('editCategoryItem.html', categories=categories, categoryItem=categoryItem)
+        return render_template('editCategoryItem.html',
+                               categories=categories,
+                               categoryItem=categoryItem)
 
 
 # Delete a Category item
 
-@app.route('/catalog/<int:category_id>/items/<int:item_id>/delete', methods=['GET', 'POST'])
+@app.route('/catalog/<int:category_id>/items/<int:item_id>/delete',
+           methods=['GET', 'POST'])
 def deleteCategoryItem(category_id, item_id):
     # Check if user is logged in
     if 'username' not in login_session:
@@ -306,7 +321,7 @@ def deleteCategoryItem(category_id, item_id):
                                 category_id=categoryItem.category_id))
     else:
         return render_template('deleteCategoryItem.html',
-                                categoryItem=categoryItem)
+                               categoryItem=categoryItem)
 
 
 @app.route('/category/add', methods=['GET', 'POST'])
@@ -327,7 +342,10 @@ def addCategoryItem():
             return redirect(url_for('addCategoryItem'))
 
         # Add category item
-        newCategoryItem = CategoryItem(name = request.form['name'], description = request.form['description'], category_id = request.form['category'], user_id = login_session['user_id'])
+        newCategoryItem = CategoryItem(name=request.form['name'],
+                                       description=request.form['description'],
+                                       category_id=request.form['category'],
+                                       user_id=login_session['user_id'])
         session.add(newCategoryItem)
         session.commit()
 
@@ -336,7 +354,7 @@ def addCategoryItem():
         # Get all categories
         categories = session.query(Category).all()
 
-        return render_template('addCategoryItem.html', categories = categories)
+        return render_template('addCategoryItem.html', categories=categories)
 
 
 # Disconnect based on provider
