@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from database_setup import User,Category,CategoryItem, Base
+from database_setup import User, Category, CategoryItem, Base
 
 engine = create_engine('sqlite:///catalog.db')
 # Bind the engine to the metadata of the Base class so that the
@@ -31,51 +31,78 @@ session.add(User1)
 session.commit()
 
 
-category1 = Category(name="animal",user_id="1")
+category1 = Category(name="animal", user_id="1")
 session.add(category1)
 session.commit()
 
-category2 = Category(name="bird",user_id="1")
+category2 = Category(name="bird", user_id="1")
 session.add(category2)
 session.commit()
 
-category3 = Category(name="plant",user_id="1")
+category3 = Category(name="plant", user_id="1")
 session.add(category3)
 session.commit()
 
-item1 = CategoryItem(name="lion",description="it is a lion",user_id="1",category_id="1")
+item1 = CategoryItem(name="lion",
+                     description="it is a lion",
+                     user_id="1",
+                     category_id="1")
 session.add(item1)
 session.commit()
 
-item2 = CategoryItem(name="goat",description="it is a goat",user_id="1",category_id="1")
+item2 = CategoryItem(name="goat",
+                     description="it is a goat",
+                     user_id="1",
+                     category_id="1")
 session.add(item2)
 session.commit()
 
-item3 = CategoryItem(name="fox",description="it is a fox",user_id="1",category_id="1")
+item3 = CategoryItem(name="fox",
+                     description="it is a fox",
+                     user_id="1",
+                     category_id="1")
 session.add(item3)
 session.commit()
 
 
-item4 = CategoryItem(name="eagle",description="it is a eagle",user_id="1",category_id="2")
+item4 = CategoryItem(name="eagle",
+                     description="it is a eagle",
+                     user_id="1",
+                     category_id="2")
 session.add(item4)
 session.commit()
 
-item5 = CategoryItem(name="parrot",description="it is a parrot",user_id="1",category_id="2")
+item5 = CategoryItem(name="parrot",
+                     description="it is a parrot",
+                     user_id="1",
+                     category_id="2")
 session.add(item5)
 session.commit()
 
-item6 = CategoryItem(name="duck",description="it is a duck",user_id="1",category_id="2")
+item6 = CategoryItem(name="duck",
+                     description="it is a duck",
+                     user_id="1",
+                     category_id="2")
 session.add(item6)
 session.commit()
 
-item7 = CategoryItem(name="orange",description="it is a orange",user_id="1",category_id="3")
+item7 = CategoryItem(name="orange",
+                     description="it is a orange",
+                     user_id="1",
+                     category_id="3")
 session.add(item7)
 session.commit()
 
-item8 = CategoryItem(name="apple",description="it is a apple",user_id="1",category_id="3")
+item8 = CategoryItem(name="apple",
+                     description="it is a apple",
+                     user_id="1",
+                     category_id="3")
 session.add(item8)
 session.commit()
 
-item9 = CategoryItem(name="dates",description="it is a dates",user_id="1",category_id="3")
+item9 = CategoryItem(name="dates",
+                     description="it is a dates",
+                     user_id="1",
+                     category_id="3")
 session.add(item9)
 session.commit()
