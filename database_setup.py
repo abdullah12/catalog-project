@@ -25,7 +25,6 @@ class Category(Base):
     user = relationship(User)
     items = relationship("CategoryItem", cascade="all, delete-orphan")
 
-
     @property
     def serialize(self):
         """Return object data in easily serializeable format"""
