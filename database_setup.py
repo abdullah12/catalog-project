@@ -13,6 +13,7 @@ class User(Base):
     name = Column(String(250), nullable=False)
     email = Column(String(250), nullable=False)
     picture = Column(String(250))
+    categories = relationship("Category", cascade="all, delete-orphan")
 
 
 class Category(Base):
@@ -22,6 +23,8 @@ class Category(Base):
     name = Column(String(250), nullable=False)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
+    items = relationship("CategoryItem", cascade="all, delete-orphan")
+
 
     @property
     def serialize(self):
@@ -39,7 +42,7 @@ class CategoryItem(Base):
     description = Column(String(250))
     id = Column(Integer, primary_key=True)
     category_id = Column(Integer, ForeignKey('category.id'))
-    category = relationship(Category, backref=backref("category_item", cascade="all, delete-orphan"))
+    category = relationship(Category)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
 
